@@ -4,8 +4,11 @@
 - Marca: Olmos Automotores (IG @olmos.automotores), Mendoza. WhatsApp/tel 261 554-0670 → `5492615540670`.
   Material de marca original en `~/Desktop/OLMOS AUTOMOTORES` (logos, tarjeta). Estilo: negro + franjas naranja→rojo, títulos en cursiva mayúscula.
 - Proyecto separado de CUBIERTASMDZ y AUTOPARTESMDZ (no enlazar entre sí).
-- Creado 2026-11-05. PEDIDO: NO debe estar bajo cubiertasmdz (son negocios distintos). Destino: https://olmosautomotores.github.io/
-  (cuenta GitHub propia `olmosautomotores`, repo `olmosautomotores.github.io`). Mientras tanto quedó publicada en cubiertasmdz/olmos (borrar cuando se mude, con OK del usuario).
+- Creado 2026-11-05. Publicada en **https://olmosautomotores.github.io/** — cuenta GitHub PROPIA `olmosautomotores`, repo `olmosautomotores/olmosautomotores.github.io`.
+  PEDIDO: nada bajo cubiertasmdz (son negocios distintos). La copia vieja en cubiertasmdz/olmos se borra con OK del usuario.
+- gh tiene 2 cuentas; la ACTIVA debe quedar `cubiertasmdz` (la usan CUBIERTASMDZ y AUTOPARTESMDZ). Esta carpeta sube sola con la
+  cuenta de Olmos: `.git/config` local tiene un credential.helper que pide `gh auth token -u olmosautomotores`. No hace falta cambiar de cuenta.
+  Para comandos `gh` sobre este repo: `GH_TOKEN=$(gh auth token -u olmosautomotores) gh ...`.
 
 ## Estructura
 - `autos.json` = fuente de verdad (datos del negocio + lista de autos). Todo lo que está ahí es PÚBLICO.
