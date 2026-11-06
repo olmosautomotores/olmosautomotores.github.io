@@ -5,7 +5,8 @@
   Material de marca original en `~/Desktop/OLMOS AUTOMOTORES` (logos, tarjeta). Estilo: negro + franjas naranja→rojo, títulos en cursiva mayúscula.
 - Proyecto separado de CUBIERTASMDZ y AUTOPARTESMDZ (no enlazar entre sí).
 - Creado 2026-11-05. Publicada en **https://olmosautomotores.github.io/** — cuenta GitHub PROPIA `olmosautomotores`, repo `olmosautomotores/olmosautomotores.github.io`.
-  PEDIDO: nada bajo cubiertasmdz (son negocios distintos). La copia vieja en cubiertasmdz/olmos se borra con OK del usuario.
+  PEDIDO: nada bajo cubiertasmdz (son negocios distintos). La copia vieja cubiertasmdz/olmos: Pages apagado y repo privado (2026-11-05);
+  borrarlo del todo necesita el permiso delete_repo o hacerlo el usuario en GitHub (Settings → Delete).
 - gh tiene 2 cuentas; la ACTIVA debe quedar `cubiertasmdz` (la usan CUBIERTASMDZ y AUTOPARTESMDZ). Esta carpeta sube sola con la
   cuenta de Olmos: `.git/config` local tiene un credential.helper que pide `gh auth token -u olmosautomotores`. No hace falta cambiar de cuenta.
   Para comandos `gh` sobre este repo: `GH_TOKEN=$(gh auth token -u olmosautomotores) gh ...`.
