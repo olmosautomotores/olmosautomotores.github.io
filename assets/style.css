@@ -303,7 +303,15 @@ a.ci:hover{border-color:#3a3a42}
 /* ---------- Portada con foto ---------- */
 .hero{padding:110px 0 100px;min-height:600px}
 .hero-media{position:absolute;inset:0 0 0 auto;width:62%;pointer-events:none}
-.hero-media img{width:100%;height:100%;object-fit:cover;object-position:35% 60%;filter:saturate(.95) contrast(1.04)}
+.hero-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:35% 60%;filter:saturate(.95) contrast(1.04);opacity:0;transition:opacity 1.4s ease}
+.hero-media img.on{opacity:1;animation:kb 9s ease-out both}
+@keyframes kb{from{transform:scale(1.06)}to{transform:scale(1)}}
+.hero-caps{position:absolute;right:96px;bottom:30px;z-index:3}
+.hero-cap{position:absolute;right:0;bottom:0;display:flex;align-items:center;gap:10px;white-space:nowrap;padding:9px 10px 9px 16px;border-radius:999px;background:rgba(10,10,11,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);font-size:14px;font-weight:600;opacity:0;transform:translateY(6px);pointer-events:none;transition:opacity .6s ease,transform .6s ease}
+.hero-cap.on{opacity:1;transform:none;pointer-events:auto}
+.hero-cap span{display:inline-flex;align-items:center;gap:5px;color:var(--accent);font-size:13px;padding:4px 10px;border-radius:999px;background:rgba(236,84,32,.12)}
+.hero-cap svg{width:14px;height:14px}
+.hero-cap:hover{border-color:rgba(255,255,255,.3)}
 .hero-media::after{content:"";position:absolute;inset:0;background:
   linear-gradient(90deg,var(--bg) 0%,rgba(10,10,11,.88) 22%,rgba(10,10,11,.35) 55%,rgba(10,10,11,.15) 100%),
   linear-gradient(0deg,var(--bg) 0%,rgba(10,10,11,0) 30%),
@@ -327,8 +335,6 @@ a.ci:hover{border-color:#3a3a42}
 @keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 .hero .eyebrow,.hero h1,.hero .lead,.hero .ctas,.hero .perks{animation:up .8s cubic-bezier(.2,.7,.2,1) both}
 .hero h1{animation-delay:.08s}.hero .lead{animation-delay:.16s}.hero .ctas{animation-delay:.24s}.hero .perks{animation-delay:.32s}
-.hero-media img{animation:heroin 1.4s ease both}
-@keyframes heroin{from{opacity:0;transform:scale(1.04)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.hero *{animation:none!important}}
 @media (prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none}}
 
@@ -343,6 +349,8 @@ a.ci:hover{border-color:#3a3a42}
   .hero{padding:0 0 46px;min-height:0}
   .hero-media{position:relative;inset:auto;width:auto;height:250px;margin:0 0 -40px}
   .hero-media img{object-position:30% 62%}
+  .hero-caps{right:16px;bottom:auto;top:226px}
+  .hero-cap{font-size:13px;padding:7px 8px 7px 13px}
   .hero-media::after{background:linear-gradient(0deg,var(--bg) 0%,rgba(10,10,11,.15) 55%,rgba(10,10,11,.35) 100%)}
   .grid{grid-template-columns:1fr}
   .bar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;align-items:center;justify-content:space-between;gap:12px;

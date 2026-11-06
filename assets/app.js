@@ -84,6 +84,17 @@
     document.addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;if(e.key==='ArrowLeft')show(k-1);else if(e.key==='ArrowRight')show(k+1);else if(e.key==='Escape')close()});
   }
 
+  /* ---------- Portada rotativa ---------- */
+  const himgs=$$('.hero-media img'), hcaps=$$('.hero-cap');
+  if(himgs.length>1){
+    const load=im=>{if(im.dataset.src&&!im.src){im.src=im.dataset.src}};
+    let h=Math.floor(Math.random()*himgs.length);
+    const show=n=>{const im=himgs[n];load(im);const go=()=>{himgs.forEach((x,j)=>x.classList.toggle('on',j===n));hcaps.forEach((x,j)=>x.classList.toggle('on',j===n));load(himgs[(n+1)%himgs.length])};
+      if(im.complete&&im.naturalWidth)go();else im.addEventListener('load',go,{once:true})};
+    if(h!==0)show(h); else load(himgs[1]);
+    setInterval(()=>{if(document.hidden)return;h=(h+1)%himgs.length;show(h)},6000);
+  }
+
   /* ---------- Animaciones al bajar ---------- */
   // Solo se animan los elementos que están más abajo de la pantalla inicial; lo visible al cargar aparece directo.
   const rv=$$('.sec-head,.card,.svc-card,.sell,.fm:not([hidden]),.tabs,.ent-row,.contact-main,.ci,.eq-g,.equip h2');

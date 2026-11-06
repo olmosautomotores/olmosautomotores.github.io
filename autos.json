@@ -6,7 +6,8 @@
     "telefono": "261 554-0670",
     "instagram": "olmos.automotores",
     "ciudad": "Mendoza, Argentina",
-    "url": "https://olmosautomotores.github.io/"
+    "url": "https://olmosautomotores.github.io/",
+    "entregas_texto": "+20 autos entregados"
   },
   "autos": [
     {
@@ -57,7 +58,8 @@
         "Otros": [
           "Equipo de GNC 5ta generación (tubo de 40)"
         ]
-      }
+      },
+      "hero_y": 0.31
     },
     {
       "id": "ford-ecosport-xlt-plus-2012",
@@ -111,7 +113,8 @@
         "Otros": [
           "Equipo de GNC"
         ]
-      }
+      },
+      "hero_y": 0.25
     },
     {
       "id": "audi-q3-2013",
@@ -333,7 +336,8 @@
         "Exterior": [
           "Llantas de aleación"
         ]
-      }
+      },
+      "hero_y": 0.345
     }
   ],
   "entregas": [

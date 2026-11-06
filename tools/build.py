@@ -13,7 +13,7 @@ from PIL import Image, ImageOps
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FOTOS = os.path.join(ROOT, "fotos")
 SIZES = {"": 1080, "m": 720, "t": 220}  # carpeta -> ancho
-VER = "11"
+VER = "13"
 
 e = html.escape
 
@@ -263,6 +263,41 @@ def seccion_form():
 </div></section>"""
 
 
+def procesar_heros(data):
+    """Recorte apaisado de la portada de cada auto para la foto grande del inicio."""
+    dst = os.path.join(ROOT, "assets", "hero")
+    os.makedirs(dst, exist_ok=True)
+    ids = set()
+    for a in data["autos"]:
+        if not a.get("fotos_origen"):
+            continue
+        ids.add(a["id"] + ".jpg")
+        out = os.path.join(dst, a["id"] + ".jpg")
+        src = a["fotos_origen"][0]
+        src = src if os.path.isabs(src) else os.path.join(ROOT, src)
+        if os.path.exists(out) and os.path.getmtime(out) > max(os.path.getmtime(src), os.path.getmtime(os.path.join(ROOT, "autos.json"))):
+            continue
+        im = ImageOps.exif_transpose(Image.open(src)).convert("RGB")
+        w, h = im.size
+        alto = int(w * 0.82)
+        y = min(int(h * a.get("hero_y", 0.28)), h - alto)
+        im.crop((0, y, w, y + alto)).save(out, "JPEG", quality=82, optimize=True, progressive=True)
+    for f in os.listdir(dst):
+        if f not in ids:
+            os.remove(os.path.join(dst, f))
+
+
+def hero_media(visibles):
+    con = [a for a in visibles if a.get("fotos_origen")]
+    if not con:
+        return ""
+    imgs = "".join(
+        f'<img {"src" if i == 0 else "data-src"}="assets/hero/{a["id"]}.jpg?v={VER}" alt="" width="1080" height="885"{" class=on fetchpriority=high" if i == 0 else ""}>'
+        for i, a in enumerate(con))
+    caps = "".join(f'<a class="hero-cap{" on" if i == 0 else ""}" href="a/{a["id"]}/">{e(titulo(a))} {e(str(a.get("anio", "")))} <span>Ver auto {ic("arrow")}</span></a>' for i, a in enumerate(con))
+    return f'<div class="hero-media" aria-hidden="true">{imgs}</div><div class="hero-caps">{caps}</div>'
+
+
 def procesar_entregas(data):
     dst = os.path.join(ROOT, "entregas")
     lista = data.get("entregas") or []
@@ -288,7 +323,7 @@ def seccion_entregas(data):
         f'<li><button type="button" data-i="{i - 1}" data-full="entregas/{i}.jpg" aria-label="Entrega: {e(x["auto"])}"><img src="entregas/t/{i}.jpg" alt="Entrega de un {e(x["auto"])}" loading="lazy" width="300" height="533"></button><span>{e(x["auto"])}</span></li>'
         for i, x in enumerate(lista, 1))
     return f"""<section class="sec ents" id="entregas"><div class="wrap">
-  <div class="sec-head"><div><span class="eyebrow">Entregas</span><h2>Ya tienen el suyo</h2></div><span class="count">{len(lista)} autos entregados</span></div>
+  <div class="sec-head"><div><span class="eyebrow">Entregas</span><h2>Ya tienen el suyo</h2></div><span class="count">{e(data["negocio"].get("entregas_texto") or f"{len(lista)} autos entregados")}</span></div>
   <ul class="ent-row">{items}</ul>
 </div></section>
 <div class="lb" role="dialog" aria-label="Entregas"><img alt=""><button class="x" type="button" aria-label="Cerrar">{ic('x')}</button><button class="arrow prev" type="button" aria-label="Anterior">{ic('l')}</button><button class="arrow next" type="button" aria-label="Siguiente">{ic('r')}</button><span class="counter"></span></div>"""
@@ -321,7 +356,7 @@ def pagina_inicio(data):
     out = head(neg, title, desc, neg["url"], neg["url"] + "assets/og-olmos.jpg", "")
     out += header(neg, "", home=True)
     out += f"""<main>
-<section class="hero"><div class="hero-media" aria-hidden="true"><img src="assets/hero-corolla.jpg?v={VER}" alt="" width="1080" height="885" fetchpriority="high"></div><div class="wrap">
+<section class="hero">{hero_media(visibles)}<div class="wrap">
   <span class="eyebrow">Compra · Venta · {e(neg['ciudad'].split(',')[0])}</span>
   <h1>Tu próximo vehículo <span>empieza acá.</span></h1>
   <p class="lead">Autos usados seleccionados, con fotos reales y precio a la vista. Te acompañamos en todo: papeles, turnos y transferencia.</p>
@@ -489,6 +524,7 @@ def build():
         if d not in ids and os.path.isdir(os.path.join(FOTOS, d)):
             shutil.rmtree(os.path.join(FOTOS, d))
     procesar_entregas(data)
+    procesar_heros(data)
     pagina_inicio(data)
     for a in data["autos"]:
         pagina_auto(data, a)
