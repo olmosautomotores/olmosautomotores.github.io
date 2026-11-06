@@ -277,7 +277,8 @@ a.ci:hover{border-color:#3a3a42}
 .hint{margin:0;color:var(--dim);font-size:14px;max-width:52ch}
 
 /* ---------- Entregas ---------- */
-.ents{padding:64px 0}
+.ents{padding:24px 0 72px}
+#stock{padding-bottom:48px}
 .ents h2{font-size:clamp(24px,3vw,32px)}
 .ent-row{list-style:none;margin:0;padding:0 0 6px;display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
 .ent-row li{flex:0 0 132px;min-width:0;scroll-snap-align:start;display:flex;flex-direction:column;gap:8px}

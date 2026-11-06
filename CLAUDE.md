@@ -45,7 +45,7 @@ Ver en local: `.venv/bin/python -m http.server 8767 --bind 127.0.0.1` → http:/
 - Portada ROTATIVA (pedido 2026-11-05): va pasando por todos los autos no vendidos cada 6 s, arranca en uno al azar, con etiqueta
   "Marca Modelo Año · Ver auto". Las fotos salen solas de la portada de cada auto (`assets/hero/<id>.jpg`, recorte apaisado).
   Si el recorte queda mal, ajustar `hero_y` en el auto (0 = arriba de la foto; por defecto 0.28) y rebuild.
-- Entregas: el contador dice `negocio.entregas_texto` ("+20 autos entregados", pedido del usuario).
+- Entregas van JUSTO DEBAJO del catálogo (pedido 2026-11-05), después servicios, formularios y contacto. El contador dice `negocio.entregas_texto` ("+20 autos entregados", pedido del usuario).
 - Tarjetas de a 3 (compu), 2 (tablet), 1 (celular). Ficha en celular: barra fija abajo con precio + WhatsApp al pasar los botones.
 - Animaciones suaves: la portada con CSS; el resto aparece al bajar (solo lo que está fuera de pantalla al cargar).
 - Ojo: con el panel del navegador interno OCULTO las animaciones se ven congeladas en las capturas; no es un error.

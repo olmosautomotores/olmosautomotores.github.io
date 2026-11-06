@@ -13,7 +13,7 @@ from PIL import Image, ImageOps
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FOTOS = os.path.join(ROOT, "fotos")
 SIZES = {"": 1080, "m": 720, "t": 220}  # carpeta -> ancho
-VER = "13"
+VER = "14"
 
 e = html.escape
 
@@ -381,6 +381,7 @@ def pagina_inicio(data):
     <div class="empty" id="empty" hidden>No encontramos autos con esa búsqueda.<br>Escribinos y te avisamos cuando entre uno.</div>
   </div>
 </div></section>
+{seccion_entregas(data)}
 
 <section class="sec svc" id="servicios"><div class="wrap">
   <div class="sec-head"><div><span class="eyebrow">Servicios</span><h2>Comprar sin vueltas</h2><p class="sec-sub">Nos ocupamos de los trámites, turnos y papeleos para que te lleves el tuyo tranquilo.</p></div></div>
@@ -395,7 +396,6 @@ def pagina_inicio(data):
 </div></section>
 
 {seccion_form()}
-{seccion_entregas(data)}
 <section class="sec" id="contacto"><div class="wrap contact-grid">
   <div class="contact-main"><span class="eyebrow">Contacto</span><h2>Hablemos</h2>
     <p class="sec-sub">¿Viste un auto que te gusta o querés que te busquemos uno? Escribinos y te respondemos a la brevedad.</p>
