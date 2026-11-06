@@ -299,7 +299,8 @@ a.ci:hover{border-color:#3a3a42}
   .tabs{display:flex}
   .tab{flex:1;padding:0 10px}
   .ent-row li{flex-basis:112px}
-  .ents{padding:48px 0}
+  .ents{padding:8px 0 48px}
+  #stock{padding-bottom:36px}
 }
 /* ---------- Portada con foto ---------- */
 .hero{padding:110px 0 100px;min-height:600px}
