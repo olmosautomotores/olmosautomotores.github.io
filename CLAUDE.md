@@ -4,7 +4,8 @@
 - Marca: Olmos Automotores (IG @olmos.automotores), Mendoza. WhatsApp/tel 261 554-0670 → `5492615540670`.
   Material de marca original en `~/Desktop/OLMOS AUTOMOTORES` (logos, tarjeta). Estilo: negro + franjas naranja→rojo, títulos en cursiva mayúscula.
 - Proyecto separado de CUBIERTASMDZ y AUTOPARTESMDZ (no enlazar entre sí).
-- Creado 2026-11-05. Publicado en https://cubiertasmdz.github.io/olmos/ (repo `cubiertasmdz/olmos`, rama `main`).
+- Creado 2026-11-05. PEDIDO: NO debe estar bajo cubiertasmdz (son negocios distintos). Destino: https://olmosautomotores.github.io/
+  (cuenta GitHub propia `olmosautomotores`, repo `olmosautomotores.github.io`). Mientras tanto quedó publicada en cubiertasmdz/olmos (borrar cuando se mude, con OK del usuario).
 
 ## Estructura
 - `autos.json` = fuente de verdad (datos del negocio + lista de autos). Todo lo que está ahí es PÚBLICO.
@@ -37,7 +38,7 @@ Ver en local: `.venv/bin/python -m http.server 8767 --bind 127.0.0.1` → http:/
   Ojo: los carruseles traen fotos repetidas → comparar con `md5 -r`.
 
 ## Publicar
-- GitHub Pages, `negocio.url` = https://cubiertasmdz.github.io/olmos/. Tarda 1-2 minutos en mostrar cambios.
+- GitHub Pages, `negocio.url` = https://olmosautomotores.github.io/. Tarda 1-2 minutos en mostrar cambios.
   Si el usuario prefiere otra cuenta o dominio propio (ej. olmosautomotores.com.ar), cambiar `negocio.url` y rebuild.
 
 ## Estado
