@@ -13,7 +13,7 @@ from PIL import Image, ImageOps
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FOTOS = os.path.join(ROOT, "fotos")
 SIZES = {"": 1080, "m": 720, "t": 220}  # carpeta -> ancho
-VER = "8"
+VER = "11"
 
 e = html.escape
 
@@ -169,12 +169,32 @@ def specs_chips(a):
     return "".join(f"<span>{e(x)}</span>" for x in out)
 
 
+DIAS_NUEVO = 21  # días que un auto lleva la etiqueta "Nuevo ingreso"
+
+
 def badge(a):
+    t = []
     if a.get("estado") == "reservado":
-        return '<span class="badge res">Reservado</span>'
-    if a.get("estado") == "vendido":
-        return '<span class="badge">Vendido</span>'
-    return ""
+        t.append('<span class="badge res">Reservado</span>')
+    elif a.get("estado") == "vendido":
+        t.append('<span class="badge">Vendido</span>')
+    else:
+        try:
+            if (date.today() - date.fromisoformat(a.get("fecha", ""))).days <= DIAS_NUEVO:
+                t.append('<span class="badge new">Nuevo ingreso</span>')
+        except ValueError:
+            pass
+    if a.get("unico_dueno"):
+        t.append('<span class="badge">Único dueño</span>')
+    if "GNC" in (a.get("combustible") or ""):
+        t.append('<span class="badge">GNC</span>')
+    tr = (a.get("traccion") or "").lower()
+    if "quattro" in tr:
+        t.append('<span class="badge">Quattro</span>')
+    elif "4x4" in tr:
+        t.append('<span class="badge">4x4</span>')
+    t += [f'<span class="badge">{e(x)}</span>' for x in a.get("etiquetas", [])]
+    return f'<div class="tags">{"".join(t[:3])}</div>' if t else ""
 
 
 def card(a, base):
@@ -301,7 +321,7 @@ def pagina_inicio(data):
     out = head(neg, title, desc, neg["url"], neg["url"] + "assets/og-olmos.jpg", "")
     out += header(neg, "", home=True)
     out += f"""<main>
-<section class="hero"><div class="stripes" aria-hidden="true"><i></i><i></i><i></i></div><div class="wrap">
+<section class="hero"><div class="hero-media" aria-hidden="true"><img src="assets/hero-corolla.jpg?v={VER}" alt="" width="1080" height="885" fetchpriority="high"></div><div class="wrap">
   <span class="eyebrow">Compra · Venta · {e(neg['ciudad'].split(',')[0])}</span>
   <h1>Tu próximo vehículo <span>empieza acá.</span></h1>
   <p class="lead">Autos usados seleccionados, con fotos reales y precio a la vista. Te acompañamos en todo: papeles, turnos y transferencia.</p>
@@ -420,7 +440,7 @@ def pagina_auto(data, a):
     <p class="note">Aceptamos permutas · Consultá financiación</p>
     {aviso}
     <div class="sheet">{sheet}</div>
-    <div class="actions">
+    <div class="actions" id="acciones">
       <a class="btn btn-wa" href="{e(wa)}" target="_blank" rel="noopener">{ic('wa')} Consultar por WhatsApp</a>
       <div class="row"><a class="btn btn-ghost" href="tel:+{neg['whatsapp']}">{ic('phone')} Llamar</a><button class="btn btn-ghost" type="button" data-share>{ic('share')} Compartir</button></div>
     </div>
@@ -436,6 +456,7 @@ def pagina_auto(data, a):
 </div></div>
 {bloque_otros}
 </main>
+<div class="bar" aria-hidden="true"><div><small>{e(titulo(a))} {e(str(a.get('anio', '')))}</small>{precio_html(a)}</div><a class="btn btn-wa" href="{e(wa)}" target="_blank" rel="noopener" tabindex="-1">{ic('wa')} Consultar</a></div>
 <div class="lb" role="dialog" aria-label="Fotos"><img alt=""><button class="x" type="button" aria-label="Cerrar">{ic('x')}</button><button class="arrow prev" type="button" aria-label="Anterior">{ic('l')}</button><button class="arrow next" type="button" aria-label="Siguiente">{ic('r')}</button><span class="counter"></span></div>
 """
     out += footer(neg, base, wa_txt)

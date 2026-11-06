@@ -37,6 +37,16 @@ Ver en local: `.venv/bin/python -m http.server 8767 --bind 127.0.0.1` → http:/
 - Equipamiento cargado 2026-11-05 con: lo que dice el post + lo visible en las fotos + equipamiento de serie de la versión que es seguro
   (ABS y airbags frontales obligatorios en Argentina desde 2014). Conservador: ante la duda, no se pone. Pendiente que el usuario lo revise.
 
+## Etiquetas de las tarjetas (automáticas, máx. 3)
+- "Nuevo ingreso" si `fecha` tiene ≤ 21 días (DIAS_NUEVO en build.py) → rebuild/publicar de vez en cuando para que se vaya sola.
+- "GNC" si el combustible dice GNC; "4x4" / "Quattro" según `traccion`; "Único dueño" si `unico_dueno: true`; extras en `etiquetas: [...]`.
+
+## Diseño (2026-11-05)
+- Portada con foto del Corolla (`assets/hero-corolla.jpg`, recorte de _ig/corolla-3.jpg). Si se vende el Corolla, cambiar por otra foto linda.
+- Tarjetas de a 3 (compu), 2 (tablet), 1 (celular). Ficha en celular: barra fija abajo con precio + WhatsApp al pasar los botones.
+- Animaciones suaves: la portada con CSS; el resto aparece al bajar (solo lo que está fuera de pantalla al cargar).
+- Ojo: con el panel del navegador interno OCULTO las animaciones se ven congeladas en las capturas; no es un error.
+
 ## Otras secciones del inicio
 - Formularios `#cotizar` (pestañas "Cotizá tu auto" y "Te lo buscamos"): no hay servidor; al enviar arma el mensaje y abre WhatsApp (wa.me).
 - Entregas `#entregas`: tira horizontal chica con visor. `autos.json` → `entregas` = [{auto, foto}]; fotos originales en `fuente/entregas/`

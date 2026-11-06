@@ -84,6 +84,28 @@
     document.addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;if(e.key==='ArrowLeft')show(k-1);else if(e.key==='ArrowRight')show(k+1);else if(e.key==='Escape')close()});
   }
 
+  /* ---------- Animaciones al bajar ---------- */
+  // Solo se animan los elementos que están más abajo de la pantalla inicial; lo visible al cargar aparece directo.
+  const rv=$$('.sec-head,.card,.svc-card,.sell,.fm:not([hidden]),.tabs,.ent-row,.contact-main,.ci,.eq-g,.equip h2');
+  const pending=new Set();
+  const reveal=t=>{if(!pending.has(t))return;pending.delete(t);t.classList.add('in');setTimeout(()=>{t.classList.remove('rv','in');t.style.transitionDelay=''},1300)};
+  const check=()=>{const lim=innerHeight*0.94;pending.forEach(t=>{if(t.getBoundingClientRect().top<lim)reveal(t)})};
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const seen=new Map();
+    rv.forEach(el=>{if(el.getBoundingClientRect().top<innerHeight)return;
+      document.documentElement.classList.add('js');el.classList.add('rv');pending.add(el);
+      const p=el.parentElement,n=seen.get(p)||0;seen.set(p,n+1);el.style.transitionDelay=Math.min(n,5)*70+'ms'});
+    addEventListener('scroll',check,{passive:true}); addEventListener('resize',check);
+  }
+
+  /* ---------- Barra fija (ficha) ---------- */
+  const bar=$('.bar'), acc=$('#acciones');
+  if(bar&&acc){
+    document.body.classList.add('has-bar');
+    const upd=()=>bar.classList.toggle('on',acc.getBoundingClientRect().bottom<0);
+    addEventListener('scroll',upd,{passive:true}); upd();
+  }
+
   /* ---------- Compartir ---------- */
   $$('[data-share]').forEach(b=>b.addEventListener('click',async()=>{
     const data={title:document.title,url:location.href.split('#')[0]};
