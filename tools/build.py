@@ -13,7 +13,7 @@ from PIL import Image, ImageOps
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FOTOS = os.path.join(ROOT, "fotos")
 SIZES = {"": 1080, "m": 720, "t": 220}  # carpeta -> ancho
-VER = "15"
+VER = "17"
 
 e = html.escape
 
