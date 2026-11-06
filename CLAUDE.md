@@ -37,12 +37,12 @@ Ver en local: `.venv/bin/python -m http.server 8767 --bind 127.0.0.1` → http:/
   Ojo: los carruseles traen fotos repetidas → comparar con `md5 -r`.
 
 ## Publicar
-- Plan: GitHub Pages. URL provisoria configurada en `autos.json` → `negocio.url` = https://cubiertasmdz.github.io/olmos/ (repo a crear `cubiertasmdz/olmos`).
+- GitHub Pages, `negocio.url` = https://cubiertasmdz.github.io/olmos/. Tarda 1-2 minutos en mostrar cambios.
   Si el usuario prefiere otra cuenta o dominio propio (ej. olmosautomotores.com.ar), cambiar `negocio.url` y rebuild.
 
 ## Estado
-- PEDIDO 2026-11-05: la página es para los autos PARTICULARES del usuario a la venta. Solo van los que él nombra
-  (sacar los datos del post de Instagram de ese auto). Hoy: Toyota Corolla SEG 2018 ($26.800.000, 171.000 km según el texto del post;
-  la placa de la foto dice 170.000) y Chevrolet Cruze LT 2015 negro ($14.300.000). Posts del 2026-08-21.
-- `autos_quitados.json`: Fiesta, EcoSport, Q3 y SW4 (se cargaron primero y el usuario pidió dejar solo los dos). No se publican.
+- Stock al 2026-11-05 (confirmado por el usuario: "esos son el total de autos", 6): Fiesta Kinetic 2017, EcoSport XLT Plus 2012,
+  Audi Q3 2013, SW4 SRV 2007 (US$), Toyota Corolla SEG 2018 ($26.800.000, 171.000 km según el texto del post; la placa de la foto dice 170.000)
+  y Chevrolet Cruze LT 2015 negro ($14.300.000). Datos sacados de los posts de Instagram de cada auto.
+- Cuando el usuario nombra autos para cargar, se SUMAN a los que ya están (no reemplazar) salvo que diga lo contrario.
 - `portada_pos` (opcional): encuadre de la portada en la tarjeta, ej. "center 100%" (el Cruze tiene la placa de datos arriba en la foto 1).

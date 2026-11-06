@@ -3,4 +3,3 @@ fuente/
 .venv/
 .DS_Store
 __pycache__/
-autos_quitados.json
