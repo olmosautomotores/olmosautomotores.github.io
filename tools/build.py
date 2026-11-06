@@ -184,7 +184,7 @@ def card(a, base):
     txt = normalize("NFD", txt.lower()).encode("ascii", "ignore").decode()
     fecha = a.get("fecha", "2000-01-01").replace("-", "")
     return f"""<a class="card" href="{base}a/{a['id']}/" data-tipo="{e((a.get('carroceria') or 'otro').lower())}" data-txt="{e(txt)}" data-anio="{a.get('anio', 0)}" data-km="{a.get('km') or 0}" data-fecha="{fecha}">
-  <div class="ph"><img src="{cover}" alt="{e(nombre_largo(a))}" loading="lazy" width="720" height="900">{badge(a)}<span class="nph">{ic('cam')}{len(fotos)}</span></div>
+  <div class="ph"><img src="{cover}" alt="{e(nombre_largo(a))}" loading="lazy" width="720" height="900"{f' style="object-position:{e(a["portada_pos"])}"' if a.get("portada_pos") else ""}>{badge(a)}<span class="nph">{ic('cam')}{len(fotos)}</span></div>
   <div class="bd">
     <div><h3>{e(titulo(a))}</h3><div class="ver">{e(a.get('version', ''))}</div></div>
     <div class="specs">{specs_chips(a)}</div>
@@ -370,6 +370,9 @@ def build():
         for d in os.listdir(adir):
             if d not in ids and os.path.isdir(os.path.join(adir, d)):
                 shutil.rmtree(os.path.join(adir, d))
+    for d in (os.listdir(FOTOS) if os.path.isdir(FOTOS) else []):
+        if d not in ids and os.path.isdir(os.path.join(FOTOS, d)):
+            shutil.rmtree(os.path.join(FOTOS, d))
     pagina_inicio(data)
     for a in data["autos"]:
         pagina_auto(data, a)

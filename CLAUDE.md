@@ -4,7 +4,7 @@
 - Marca: Olmos Automotores (IG @olmos.automotores), Mendoza. WhatsApp/tel 261 554-0670 → `5492615540670`.
   Material de marca original en `~/Desktop/OLMOS AUTOMOTORES` (logos, tarjeta). Estilo: negro + franjas naranja→rojo, títulos en cursiva mayúscula.
 - Proyecto separado de CUBIERTASMDZ y AUTOPARTESMDZ (no enlazar entre sí).
-- Creado 2026-11-05. Todavía NO publicado (falta que el usuario elija dónde: ver "Publicar").
+- Creado 2026-11-05. Publicado en https://cubiertasmdz.github.io/olmos/ (repo `cubiertasmdz/olmos`, rama `main`).
 
 ## Estructura
 - `autos.json` = fuente de verdad (datos del negocio + lista de autos). Todo lo que está ahí es PÚBLICO.
@@ -41,6 +41,8 @@ Ver en local: `.venv/bin/python -m http.server 8767 --bind 127.0.0.1` → http:/
   Si el usuario prefiere otra cuenta o dominio propio (ej. olmosautomotores.com.ar), cambiar `negocio.url` y rebuild.
 
 ## Estado
-- 2026-11-05: cargados desde el Instagram 4 autos: Fiesta Kinetic 2017 ($15.000.000), EcoSport XLT Plus 2012 ($10.900.000),
-  Audi Q3 2013 ($25.900.000), SW4 SRV 2007 (US$ 20.000). Suzuki Fun no (vendido). Falta confirmar con el usuario si siguen todos a la venta.
-  Combustible de Q3 (nafta) y SW4 (diésel) puesto por ser de fábrica; el resto sale de los posts.
+- PEDIDO 2026-11-05: la página es para los autos PARTICULARES del usuario a la venta. Solo van los que él nombra
+  (sacar los datos del post de Instagram de ese auto). Hoy: Toyota Corolla SEG 2018 ($26.800.000, 171.000 km según el texto del post;
+  la placa de la foto dice 170.000) y Chevrolet Cruze LT 2015 negro ($14.300.000). Posts del 2026-08-21.
+- `autos_quitados.json`: Fiesta, EcoSport, Q3 y SW4 (se cargaron primero y el usuario pidió dejar solo los dos). No se publican.
+- `portada_pos` (opcional): encuadre de la portada en la tarjeta, ej. "center 100%" (el Cruze tiene la placa de datos arriba en la foto 1).
