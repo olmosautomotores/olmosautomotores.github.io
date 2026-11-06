@@ -53,6 +53,37 @@
     go(0);
   }
 
+  /* ---------- Formularios -> WhatsApp ---------- */
+  const tabs=$$('.tab');
+  function showTab(name){tabs.forEach(t=>t.setAttribute('aria-selected',t.dataset.tab===name));$$('.fm').forEach(f=>f.hidden=f.dataset.wa!==name)}
+  tabs.forEach(t=>t.addEventListener('click',()=>showTab(t.dataset.tab)));
+  $$('a[data-tab]').forEach(a=>a.addEventListener('click',()=>showTab(a.dataset.tab)));
+  const WA=(document.querySelector('meta[name=wa]')||{}).content;
+  $$('.fm').forEach(f=>f.addEventListener('submit',ev=>{
+    ev.preventDefault(); let bad=null;
+    $$('[required]',f).forEach(el=>{const ok=el.value.trim()!=='';el.closest('.f').classList.toggle('err',!ok);if(!ok&&!bad)bad=el});
+    if(bad){bad.focus();toast('Completá los campos marcados');return}
+    const lines=[]; $$('input,select,textarea',f).forEach(el=>{const v=el.value.trim();if(v)lines.push(`• ${el.name}: ${v}`)});
+    const head=f.dataset.wa==='cotizar'?'Hola! Quiero cotizar mi auto:':'Hola! Estoy buscando un auto:';
+    const msg=head+'\n'+lines.join('\n')+(f.dataset.wa==='cotizar'?'\n\nTe mando fotos por acá.':'');
+    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,'_blank','noopener');
+  }));
+  $$('.fm [required]').forEach(el=>{const clr=()=>el.closest('.f').classList.remove('err');el.addEventListener('input',clr);el.addEventListener('change',clr)});
+
+  /* ---------- Entregas (visor) ---------- */
+  const ents=$$('.ent-row button');
+  if(ents.length){
+    const lb=$('.lb'), im=$('img',lb), ct=$('.counter',lb); let k=0;
+    const show=n=>{k=(n+ents.length)%ents.length;im.src=ents[k].dataset.full;im.alt=ents[k].getAttribute('aria-label');ct.textContent=`${k+1} / ${ents.length}`};
+    const close=()=>{lb.classList.remove('on');document.body.style.overflow=''};
+    ents.forEach((b,i)=>b.addEventListener('click',()=>{show(i);lb.classList.add('on');document.body.style.overflow='hidden'}));
+    $('.x',lb).onclick=close; lb.addEventListener('click',e=>{if(e.target===lb)close()});
+    $('.prev',lb).onclick=e=>{e.stopPropagation();show(k-1)}; $('.next',lb).onclick=e=>{e.stopPropagation();show(k+1)};
+    let x0=null; lb.addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});
+    lb.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)show(k+(dx<0?1:-1));x0=null},{passive:true});
+    document.addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;if(e.key==='ArrowLeft')show(k-1);else if(e.key==='ArrowRight')show(k+1);else if(e.key==='Escape')close()});
+  }
+
   /* ---------- Compartir ---------- */
   $$('[data-share]').forEach(b=>b.addEventListener('click',async()=>{
     const data={title:document.title,url:location.href.split('#')[0]};

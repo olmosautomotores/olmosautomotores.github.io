@@ -32,7 +32,16 @@ Ver en local: `.venv/bin/python -m http.server 8767 --bind 127.0.0.1` → http:/
 `caja`, `traccion` (opcional), `carroceria` (SUV, Hatchback, Sedán, Pick-up… arma los botones de filtro), `color` (opcional),
 `precio` (número; null → "Consultar"), `moneda` (ARS|USD), `estado` (disponible | reservado → cinta | vendido → se oculta del listado, el link avisa "ya se vendió"),
 `fecha` (ingreso, ordena "más recientes"), `destacados` (lista), `descripcion`, `fotos_origen` (rutas; la primera = portada).
+`equipamiento` (grupos → lista: Seguridad, Confort, Tecnología, Exterior, Mecánica, Otros; se muestra en la ficha).
 - No inventar datos. Si falta algo, preguntar o dejar el campo afuera.
+- Equipamiento cargado 2026-11-05 con: lo que dice el post + lo visible en las fotos + equipamiento de serie de la versión que es seguro
+  (ABS y airbags frontales obligatorios en Argentina desde 2014). Conservador: ante la duda, no se pone. Pendiente que el usuario lo revise.
+
+## Otras secciones del inicio
+- Formularios `#cotizar` (pestañas "Cotizá tu auto" y "Te lo buscamos"): no hay servidor; al enviar arma el mensaje y abre WhatsApp (wa.me).
+- Entregas `#entregas`: tira horizontal chica con visor. `autos.json` → `entregas` = [{auto, foto}]; fotos originales en `fuente/entregas/`
+  (copiadas de `~/Desktop/OLMOS AUTOMOTORES/DESTACADAS CONTENIDO/ENTREGAS - VENTAS`, 6.png a 17.png). Se procesan a `entregas/` (810px) y `entregas/t/`.
+  Si cambia la cantidad, el build las regenera. Para sumar una: agregarla al final de la lista.
 
 ## Cargar un auto nuevo
 1. Fotos: copiarlas a `_ig/` (o usar rutas absolutas) y ponerlas en `fotos_origen` (portada primero: una foto limpia de 3/4 frente).

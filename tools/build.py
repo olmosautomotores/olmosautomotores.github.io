@@ -13,7 +13,7 @@ from PIL import Image, ImageOps
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FOTOS = os.path.join(ROOT, "fotos")
 SIZES = {"": 1080, "m": 720, "t": 220}  # carpeta -> ancho
-VER = "6"
+VER = "8"
 
 e = html.escape
 
@@ -116,6 +116,7 @@ def head(neg, title, desc, url, img, base):
 <title>{e(title)}</title>
 <meta name="description" content="{e(desc)}">
 <meta name="theme-color" content="#0a0a0b">
+<meta name="wa" content="{neg['whatsapp']}">
 <link rel="canonical" href="{e(url)}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{e(neg['nombre'])}">
@@ -139,7 +140,7 @@ def header(neg, base, home=False):
     wa = wa_link(neg, "Hola! Quería hacer una consulta.")
     return f"""<header class="top"><div class="wrap">
   <a class="brand" href="{base or './'}" aria-label="{e(neg['nombre'])} — inicio"><img src="{base}assets/logo-blanco.png" alt="{e(neg['nombre'])}" width="774" height="119"></a>
-  <nav class="nav" aria-label="Principal"><a href="{pre}#stock">Stock</a><a href="{pre}#servicios">Servicios</a><a href="{pre}#vender">Vendé tu auto</a><a href="{pre}#contacto">Contacto</a></nav>
+  <nav class="nav" aria-label="Principal"><a href="{pre}#stock">Stock</a><a href="{pre}#servicios">Servicios</a><a href="{pre}#cotizar">Cotizá tu auto</a><a href="{pre}#contacto">Contacto</a></nav>
   <a class="btn btn-wa btn-sm" href="{e(wa)}" target="_blank" rel="noopener" aria-label="WhatsApp">{ic('wa')}<span>WhatsApp</span></a>
 </div></header>
 """
@@ -193,6 +194,96 @@ def card(a, base):
 </a>"""
 
 
+# ---------------------------------------------------------------- secciones
+def opts(lista, vacio="Elegí"):
+    return f'<option value="">{vacio}</option>' + "".join(f"<option>{e(x)}</option>" for x in lista)
+
+
+def seccion_form():
+    anios = [str(y) for y in range(date.today().year + 1, 1979, -1)]
+    return f"""<section class="sec forms" id="cotizar"><div class="wrap">
+  <div class="sec-head"><div><span class="eyebrow">Formularios</span><h2>Cotizá o encargá tu auto</h2>
+    <p class="sec-sub">Completá los datos y se abre WhatsApp con el mensaje listo para enviar. Te respondemos a la brevedad.</p></div></div>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="t-cotizar" aria-controls="f-cotizar" aria-selected="true" data-tab="cotizar">Cotizá tu auto</button>
+    <button class="tab" role="tab" id="t-buscar" aria-controls="f-buscar" aria-selected="false" data-tab="buscar">Te lo buscamos</button>
+  </div>
+  <form class="fm" id="f-cotizar" role="tabpanel" aria-labelledby="t-cotizar" data-wa="cotizar" novalidate>
+    <p class="fm-intro">¿Querés vender tu auto, dejarlo en consignación o usarlo como parte de pago? Contanos cómo es.</p>
+    <div class="fg">
+      <label class="f"><span>Tu nombre *</span><input name="Nombre" required autocomplete="name"></label>
+      <label class="f"><span>¿Qué querés hacer? *</span><select name="Quiero" required>{opts(["Venderlo", "Dejarlo en consignación", "Entregarlo como parte de pago"])}</select></label>
+      <label class="f"><span>Marca *</span><input name="Marca" required placeholder="Ej: Toyota"></label>
+      <label class="f"><span>Modelo *</span><input name="Modelo" required placeholder="Ej: Corolla"></label>
+      <label class="f"><span>Versión</span><input name="Versión" placeholder="Ej: XEI 1.8 CVT"></label>
+      <label class="f"><span>Año *</span><select name="Año" required>{opts(anios)}</select></label>
+      <label class="f"><span>Kilómetros *</span><input name="Kilómetros" required inputmode="numeric" placeholder="Ej: 85.000"></label>
+      <label class="f"><span>Combustible</span><select name="Combustible">{opts(["Nafta", "Nafta / GNC", "Diésel", "Híbrido", "Eléctrico"])}</select></label>
+      <label class="f"><span>Caja</span><select name="Caja">{opts(["Manual", "Automática"])}</select></label>
+      <label class="f"><span>¿Cuántos dueños tuvo?</span><select name="Dueños">{opts(["Único dueño", "2 dueños", "3 o más"])}</select></label>
+      <label class="f full"><span>Estado y detalles</span><textarea name="Detalles" rows="3" placeholder="Service al día, cubiertas, detalles de chapa o pintura, deudas, etc."></textarea></label>
+    </div>
+    <div class="fm-ft"><p class="hint">Después de enviar, mandanos por WhatsApp 4 o 5 fotos del auto (frente, costado, atrás e interior).</p>
+      <button class="btn btn-wa" type="submit">{ic('wa')} Enviar por WhatsApp</button></div>
+  </form>
+  <form class="fm" id="f-buscar" role="tabpanel" aria-labelledby="t-buscar" data-wa="buscar" novalidate hidden>
+    <p class="fm-intro">¿No encontraste lo que buscás en el stock? Decinos qué auto querés y te avisamos cuando lo tengamos.</p>
+    <div class="fg">
+      <label class="f"><span>Tu nombre *</span><input name="Nombre" required autocomplete="name"></label>
+      <label class="f"><span>¿Qué auto buscás? *</span><input name="Busco" required placeholder="Ej: Toyota Corolla, SUV, pick-up 4x4"></label>
+      <label class="f"><span>Año desde</span><select name="Año desde">{opts(anios, "Cualquiera")}</select></label>
+      <label class="f"><span>Presupuesto aproximado</span><input name="Presupuesto" placeholder="Ej: $20.000.000 o US$ 15.000"></label>
+      <label class="f"><span>Caja</span><select name="Caja">{opts(["Manual", "Automática"], "Indistinto")}</select></label>
+      <label class="f"><span>Forma de pago</span><select name="Pago">{opts(["Contado", "Financiado", "Con permuta (entrego mi auto)"])}</select></label>
+      <label class="f full"><span>Comentarios</span><textarea name="Comentarios" rows="3" placeholder="Color, combustible, kilometraje máximo, lo que te importe."></textarea></label>
+    </div>
+    <div class="fm-ft"><p class="hint">Te escribimos apenas entre un auto que coincida.</p>
+      <button class="btn btn-wa" type="submit">{ic('wa')} Enviar por WhatsApp</button></div>
+  </form>
+</div></section>"""
+
+
+def procesar_entregas(data):
+    dst = os.path.join(ROOT, "entregas")
+    lista = data.get("entregas") or []
+    if os.path.isdir(dst) and len([f for f in os.listdir(dst) if f.endswith(".jpg")]) == len(lista):
+        return
+    if os.path.isdir(dst):
+        shutil.rmtree(dst)
+    os.makedirs(os.path.join(dst, "t"))
+    for n, x in enumerate(lista, 1):
+        p = x["foto"] if os.path.isabs(x["foto"]) else os.path.join(ROOT, x["foto"])
+        im = ImageOps.exif_transpose(Image.open(p)).convert("RGB")
+        for sub, w in (("", 810), ("t", 300)):
+            r = im.resize((w, round(im.height * w / im.width)), Image.LANCZOS)
+            r.save(os.path.join(dst, sub, f"{n}.jpg"), "JPEG", quality=76, optimize=True, progressive=True)
+    print(f"  entregas: {len(lista)}")
+
+
+def seccion_entregas(data):
+    lista = data.get("entregas") or []
+    if not lista:
+        return ""
+    items = "".join(
+        f'<li><button type="button" data-i="{i - 1}" data-full="entregas/{i}.jpg" aria-label="Entrega: {e(x["auto"])}"><img src="entregas/t/{i}.jpg" alt="Entrega de un {e(x["auto"])}" loading="lazy" width="300" height="533"></button><span>{e(x["auto"])}</span></li>'
+        for i, x in enumerate(lista, 1))
+    return f"""<section class="sec ents" id="entregas"><div class="wrap">
+  <div class="sec-head"><div><span class="eyebrow">Entregas</span><h2>Ya tienen el suyo</h2></div><span class="count">{len(lista)} autos entregados</span></div>
+  <ul class="ent-row">{items}</ul>
+</div></section>
+<div class="lb" role="dialog" aria-label="Entregas"><img alt=""><button class="x" type="button" aria-label="Cerrar">{ic('x')}</button><button class="arrow prev" type="button" aria-label="Anterior">{ic('l')}</button><button class="arrow next" type="button" aria-label="Siguiente">{ic('r')}</button><span class="counter"></span></div>"""
+
+
+def bloque_equipamiento(a):
+    eq = a.get("equipamiento") or {}
+    if not eq:
+        return ""
+    grupos = "".join(
+        f'<div class="eq-g"><h3>{e(g)}</h3><ul class="checks">' + "".join(f"<li>{ic('check')}<span>{e(x)}</span></li>" for x in items) + "</ul></div>"
+        for g, items in eq.items() if items)
+    return f'<section class="equip"><h2>Equipamiento</h2><div class="eq-grid">{grupos}</div></section>'
+
+
 # ---------------------------------------------------------------- páginas
 def pagina_inicio(data):
     neg, autos = data["negocio"], data["autos"]
@@ -244,10 +335,12 @@ def pagina_inicio(data):
     <div class="svc-card"><div class="ic">{ic('key')}</div><h3>Consignaciones</h3><p>Dejá tu auto con nosotros y nos encargamos de venderlo, de principio a fin.</p></div>
     <div class="svc-card"><div class="ic">{ic('doc')}</div><h3>Gestoría</h3><p>Transferencias, informes y papeles. Simple, ágil y seguro.</p></div>
   </div>
-  <div class="sell" id="vender"><div><h3>¿Querés vender tu auto?</h3><p>Vos confiás, nosotros nos encargamos. Mandanos fotos y datos por WhatsApp.</p></div>
-    <a class="btn btn-accent" href="{e(wa_vender)}" target="_blank" rel="noopener">{ic('wa')} Quiero vender mi auto</a></div>
+  <div class="sell" id="vender"><div><h3>¿Querés vender tu auto?</h3><p>Vos confiás, nosotros nos encargamos. Completá los datos y te pasamos una cotización.</p></div>
+    <a class="btn btn-accent" href="#cotizar" data-tab="cotizar">Cotizá tu auto {ic('arrow')}</a></div>
 </div></section>
 
+{seccion_form()}
+{seccion_entregas(data)}
 <section class="sec" id="contacto"><div class="wrap contact-grid">
   <div class="contact-main"><span class="eyebrow">Contacto</span><h2>Hablemos</h2>
     <p class="sec-sub">¿Viste un auto que te gusta o querés que te busquemos uno? Escribinos y te respondemos a la brevedad.</p>
@@ -339,6 +432,7 @@ def pagina_auto(data, a):
     {bloque_dest}
     {bloque_desc}
   </div>
+  {bloque_equipamiento(a)}
 </div></div>
 {bloque_otros}
 </main>
@@ -373,6 +467,7 @@ def build():
     for d in (os.listdir(FOTOS) if os.path.isdir(FOTOS) else []):
         if d not in ids and os.path.isdir(os.path.join(FOTOS, d)):
             shutil.rmtree(os.path.join(FOTOS, d))
+    procesar_entregas(data)
     pagina_inicio(data)
     for a in data["autos"]:
         pagina_auto(data, a)

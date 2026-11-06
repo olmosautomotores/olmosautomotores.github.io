@@ -39,7 +39,25 @@
         "_ig/fiesta-6.jpg",
         "_ig/fiesta-7.jpg",
         "_ig/fiesta-8.jpg"
-      ]
+      ],
+      "equipamiento": {
+        "Seguridad": [
+          "Airbags frontales",
+          "Frenos ABS"
+        ],
+        "Confort": [
+          "Aire acondicionado",
+          "Dirección asistida eléctrica",
+          "Levantavidrios eléctricos delanteros",
+          "Cierre centralizado"
+        ],
+        "Tecnología": [
+          "Radio con USB y Bluetooth"
+        ],
+        "Otros": [
+          "Equipo de GNC 5ta generación (tubo de 40)"
+        ]
+      }
     },
     {
       "id": "ford-ecosport-xlt-plus-2012",
@@ -73,7 +91,27 @@
         "_ig/ecosport-5.jpg",
         "_ig/ecosport-7.jpg",
         "_ig/ecosport-9.jpg"
-      ]
+      ],
+      "equipamiento": {
+        "Seguridad": [
+          "Airbags frontales",
+          "Frenos ABS"
+        ],
+        "Confort": [
+          "Aire acondicionado",
+          "Dirección asistida",
+          "Tapizado de cuero bicolor",
+          "Levantavidrios eléctricos",
+          "Cierre centralizado"
+        ],
+        "Exterior": [
+          "Llantas de aleación",
+          "Rueda de auxilio en portón trasero"
+        ],
+        "Otros": [
+          "Equipo de GNC"
+        ]
+      }
     },
     {
       "id": "audi-q3-2013",
@@ -106,7 +144,27 @@
         "_ig/q3-6.jpg",
         "_ig/q3-7.jpg",
         "_ig/q3-8.jpg"
-      ]
+      ],
+      "equipamiento": {
+        "Seguridad": [
+          "Airbags frontales y laterales",
+          "Frenos ABS",
+          "Control de estabilidad (ESP)"
+        ],
+        "Confort": [
+          "Aire acondicionado",
+          "Volante multifunción",
+          "Levantavidrios eléctricos"
+        ],
+        "Exterior": [
+          "Llantas de aleación"
+        ],
+        "Mecánica": [
+          "Motor 2.0 TFSI turbo",
+          "Tracción integral Quattro",
+          "Caja manual"
+        ]
+      }
     },
     {
       "id": "toyota-sw4-srv-2007",
@@ -140,7 +198,32 @@
         "_ig/sw4-7.jpg",
         "_ig/sw4-8.jpg",
         "_ig/sw4-9.jpg"
-      ]
+      ],
+      "equipamiento": {
+        "Seguridad": [
+          "Airbags frontales",
+          "Frenos ABS"
+        ],
+        "Confort": [
+          "Tapizado de cuero",
+          "7 asientos",
+          "Aire acondicionado",
+          "Levantavidrios y espejos eléctricos",
+          "Cierre centralizado"
+        ],
+        "Tecnología": [
+          "Pantalla con Apple CarPlay"
+        ],
+        "Exterior": [
+          "Portaequipaje",
+          "Llantas de aleación",
+          "Cubiertas BF Goodrich KO3 nuevas"
+        ],
+        "Mecánica": [
+          "Motor 3.0 turbodiésel",
+          "Tracción 4x4 con reductora"
+        ]
+      }
     },
     {
       "id": "toyota-corolla-seg-2018",
@@ -172,7 +255,33 @@
         "_ig/corolla-4.jpg",
         "_ig/corolla-5.jpg",
         "_ig/corolla-6.jpg"
-      ]
+      ],
+      "equipamiento": {
+        "Seguridad": [
+          "7 airbags",
+          "Frenos ABS",
+          "Control de estabilidad y tracción",
+          "Cámara de retroceso"
+        ],
+        "Confort": [
+          "Climatizador automático",
+          "Tapizado de cuero",
+          "Control de velocidad crucero",
+          "Arranque por botón y llave inteligente",
+          "Volante multifunción"
+        ],
+        "Tecnología": [
+          "Pantalla táctil",
+          "Bluetooth y USB"
+        ],
+        "Exterior": [
+          "Faros full LED",
+          "Llantas de aleación 17\""
+        ],
+        "Mecánica": [
+          "Caja automática CVT con levas al volante"
+        ]
+      }
     },
     {
       "id": "chevrolet-cruze-lt-2015",
@@ -204,7 +313,77 @@
         "_ig/cruze-4.jpg",
         "_ig/cruze-5.jpg",
         "_ig/cruze-6.jpg"
-      ]
+      ],
+      "equipamiento": {
+        "Seguridad": [
+          "Airbags frontales",
+          "Frenos ABS"
+        ],
+        "Confort": [
+          "Aire acondicionado",
+          "Volante con comandos",
+          "Levantavidrios eléctricos",
+          "Cierre centralizado"
+        ],
+        "Tecnología": [
+          "Pantalla táctil MyLink",
+          "Bluetooth y USB",
+          "Computadora de a bordo"
+        ],
+        "Exterior": [
+          "Llantas de aleación"
+        ]
+      }
+    }
+  ],
+  "entregas": [
+    {
+      "auto": "Fiat Palio",
+      "foto": "fuente/entregas/1.png"
+    },
+    {
+      "auto": "Suzuki Swift",
+      "foto": "fuente/entregas/2.png"
+    },
+    {
+      "auto": "Toyota Etios",
+      "foto": "fuente/entregas/3.png"
+    },
+    {
+      "auto": "Renault Logan",
+      "foto": "fuente/entregas/4.png"
+    },
+    {
+      "auto": "Ford EcoSport",
+      "foto": "fuente/entregas/5.png"
+    },
+    {
+      "auto": "Volkswagen Voyage",
+      "foto": "fuente/entregas/6.png"
+    },
+    {
+      "auto": "Volkswagen Amarok",
+      "foto": "fuente/entregas/7.png"
+    },
+    {
+      "auto": "Chevrolet Corsa Classic",
+      "foto": "fuente/entregas/8.png"
+    },
+    {
+      "auto": "Fiat Cronos",
+      "foto": "fuente/entregas/9.png"
+    },
+    {
+      "auto": "Toyota Corolla",
+      "foto": "fuente/entregas/10.png"
+    },
+    {
+      "auto": "Peugeot 308",
+      "foto": "fuente/entregas/11.png"
+    },
+    {
+      "auto": "Ford EcoSport",
+      "foto": "fuente/entregas/12.png"
     }
   ]
 }
