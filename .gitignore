@@ -1,0 +1,5 @@
+_ig/
+fuente/
+.venv/
+.DS_Store
+__pycache__/
