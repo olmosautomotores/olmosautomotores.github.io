@@ -50,6 +50,11 @@ Ver en local: `.venv/bin/python -m http.server 8767 --bind 127.0.0.1` → http:/
 - Animaciones suaves: la portada con CSS; el resto aparece al bajar (solo lo que está fuera de pantalla al cargar).
 - Ojo: con el panel del navegador interno OCULTO las animaciones se ven congeladas en las capturas; no es un error.
 
+## Vendidos (pedido 2026-11-10)
+- `estado: "vendido"` → sale del catálogo y de la portada, y pasa a la sección "Ya encontraron dueño" (justo después del catálogo,
+  antes de entregas): tarjetas chicas en GRIS con sello "Vendido", sin precio. Orden: `fecha_venta` (poner la fecha al dar de baja).
+- 2026-11-10: vendida la Ford EcoSport XLT Plus 2012. El usuario va a mandar fotos de la entrega a la clienta → sumar a `entregas`.
+
 ## Otras secciones del inicio
 - Formularios `#cotizar` (pestañas "Cotizá tu auto" y "Te lo buscamos"): no hay servidor; al enviar arma el mensaje y abre WhatsApp (wa.me).
 - Entregas `#entregas`: tira horizontal chica con visor. `autos.json` → `entregas` = [{auto, foto}]; fotos originales en `fuente/entregas/`

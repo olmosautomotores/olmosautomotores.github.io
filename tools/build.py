@@ -13,7 +13,7 @@ from PIL import Image, ImageOps
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FOTOS = os.path.join(ROOT, "fotos")
 SIZES = {"": 1080, "m": 720, "t": 220}  # carpeta -> ancho
-VER = "17"
+VER = "18"
 
 e = html.escape
 
@@ -204,12 +204,13 @@ def card(a, base):
     from unicodedata import normalize
     txt = normalize("NFD", txt.lower()).encode("ascii", "ignore").decode()
     fecha = a.get("fecha", "2000-01-01").replace("-", "")
-    return f"""<a class="card" href="{base}a/{a['id']}/" data-tipo="{e((a.get('carroceria') or 'otro').lower())}" data-txt="{e(txt)}" data-anio="{a.get('anio', 0)}" data-km="{a.get('km') or 0}" data-fecha="{fecha}">
-  <div class="ph"><img src="{cover}" alt="{e(nombre_largo(a))}" loading="lazy" width="720" height="900"{f' style="object-position:{e(a["portada_pos"])}"' if a.get("portada_pos") else ""}>{badge(a)}<span class="nph">{ic('cam')}{len(fotos)}</span></div>
+    vend = a.get("estado") == "vendido"
+    return f"""<a class="card{' is-sold' if vend else ''}" href="{base}a/{a['id']}/" data-tipo="{e((a.get('carroceria') or 'otro').lower())}" data-txt="{e(txt)}" data-anio="{a.get('anio', 0)}" data-km="{a.get('km') or 0}" data-fecha="{fecha}">
+  <div class="ph"><img src="{cover}" alt="{e(nombre_largo(a))}" loading="lazy" width="720" height="900"{f' style="object-position:{e(a["portada_pos"])}"' if a.get("portada_pos") else ""}>{'<span class="stamp">Vendido</span>' if vend else badge(a)}<span class="nph">{ic('cam')}{len(fotos)}</span></div>
   <div class="bd">
     <div><h3>{e(titulo(a))}</h3><div class="ver">{e(a.get('version', ''))}</div></div>
     <div class="specs">{specs_chips(a)}</div>
-    <div class="ft">{precio_html(a)}<span class="go">Ver auto {ic('arrow')}</span></div>
+    <div class="ft">{'<span class="sold-tag">Vendido</span>' if vend else precio_html(a)}<span class="go">Ver auto {ic('arrow')}</span></div>
   </div>
 </a>"""
 
@@ -348,6 +349,14 @@ def pagina_inicio(data):
     chips = '<button class="chip" data-tipo="todos" aria-pressed="true">Todos</button>' + "".join(
         f'<button class="chip" data-tipo="{e(t.lower())}" aria-pressed="false">{e(t)}</button>' for t in tipos) if len(tipos) > 1 else ""
     cards = "\n".join(card(a, "") for a in visibles)
+    vendidos = [a for a in autos if a.get("estado") == "vendido"]
+    vendidos.sort(key=lambda a: a.get("fecha_venta", a.get("fecha", "")), reverse=True)
+    sec_vendidos = ""
+    if vendidos:
+        sec_vendidos = f"""<section class="sec vend" id="vendidos"><div class="wrap">
+  <div class="sec-head"><div><span class="eyebrow">Vendidos</span><h2>Ya encontraron dueño</h2></div><span class="count">{len(vendidos)} {'vendido' if len(vendidos) == 1 else 'vendidos'}</span></div>
+  <div class="grid sold-grid">{"".join(card(a, "") for a in vendidos)}</div>
+</div></section>"""
     desc = f"Autos usados seleccionados en {neg['ciudad']}. Financiación, permutas, consignaciones y gestoría. Consultá por WhatsApp al {neg['telefono']}."
     title = f"{neg['nombre']} · Autos en venta en Mendoza"
     wa_hola = wa_link(neg, "Hola! Vi la página y quería consultar por un vehículo.")
@@ -381,6 +390,7 @@ def pagina_inicio(data):
     <div class="empty" id="empty" hidden>No encontramos autos con esa búsqueda.<br>Escribinos y te avisamos cuando entre uno.</div>
   </div>
 </div></section>
+{sec_vendidos}
 {seccion_entregas(data)}
 
 <section class="sec svc" id="servicios"><div class="wrap">
