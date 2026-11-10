@@ -74,7 +74,7 @@
       "carroceria": "SUV",
       "precio": 10900000,
       "moneda": "ARS",
-      "estado": "disponible",
+      "estado": "vendido",
       "fecha": "2026-10-24",
       "destacados": [
         "4 cubiertas nuevas",
@@ -114,7 +114,8 @@
           "Equipo de GNC"
         ]
       },
-      "hero_y": 0.25
+      "hero_y": 0.25,
+      "fecha_venta": "2026-11-10"
     },
     {
       "id": "audi-q3-2013",
