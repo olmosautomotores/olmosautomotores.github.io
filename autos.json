@@ -339,6 +339,63 @@
         ]
       },
       "hero_y": 0.345
+    },
+    {
+      "id": "renault-kangoo-furgon-2017",
+      "marca": "Renault",
+      "modelo": "Kangoo",
+      "version": "Furgón 1.6",
+      "anio": 2017,
+      "km": 201000,
+      "motor": "1.6",
+      "combustible": "Nafta",
+      "caja": "Manual",
+      "carroceria": "Utilitario",
+      "color": "Blanco",
+      "precio": 12900000,
+      "moneda": "ARS",
+      "estado": "disponible",
+      "fecha": "2026-11-18",
+      "destacados": [
+        "Distribución realizada",
+        "2 cubiertas nuevas",
+        "Batería nueva",
+        "Mecánica excelente",
+        "Pintura original, mínimos detalles de chapa"
+      ],
+      "descripcion": "Una excelente opción para quienes buscan un utilitario práctico y confiable, ideal para trabajar.",
+      "equipamiento": {
+        "Seguridad": [
+          "Airbags frontales",
+          "Frenos ABS"
+        ],
+        "Confort": [
+          "Aire acondicionado",
+          "Dirección asistida"
+        ],
+        "Tecnología": [
+          "Radio"
+        ],
+        "Carga": [
+          "Puerta lateral corrediza",
+          "Doble puerta trasera",
+          "Caja de carga amplia"
+        ]
+      },
+      "hero_y": 0.36,
+      "fotos_origen": [
+        "fuente/kangoo/1.jpg",
+        "fuente/kangoo/2.jpg",
+        "fuente/kangoo/3.jpg",
+        "fuente/kangoo/4.jpg",
+        "fuente/kangoo/5.jpg",
+        "fuente/kangoo/6.jpg",
+        "fuente/kangoo/7.jpg",
+        "fuente/kangoo/8.jpg",
+        "fuente/kangoo/9.jpg",
+        "fuente/kangoo/10.jpg",
+        "fuente/kangoo/11.jpg"
+      ]
     }
   ],
   "entregas": [

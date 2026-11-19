@@ -55,6 +55,11 @@ Ver en local: `.venv/bin/python -m http.server 8767 --bind 127.0.0.1` → http:/
   antes de entregas): tarjetas chicas en GRIS con sello "Vendido", sin precio. Orden: `fecha_venta` (poner la fecha al dar de baja).
 - 2026-11-10: vendida la Ford EcoSport XLT Plus 2012. El usuario va a mandar fotos de la entrega a la clienta → sumar a `entregas`.
 
+## Ingresos
+- 2026-11-18: Renault Kangoo Furgón 1.6 2017, 201.000 km, manual, $12.900.000 (datos del post IG Df5lU5gGLII; el precio está en la
+  placa de la 2.ª foto del carrusel, no en el texto). Fotos SIN logos mandadas por el usuario → `fuente/kangoo/` (1500×2000).
+  Preferir siempre las fotos sin logos que mande el usuario antes que las de Instagram.
+
 ## Otras secciones del inicio
 - Formularios `#cotizar` (pestañas "Cotizá tu auto" y "Te lo buscamos"): no hay servidor; al enviar arma el mensaje y abre WhatsApp (wa.me).
 - Entregas `#entregas`: tira horizontal chica con visor. `autos.json` → `entregas` = [{auto, foto}]; fotos originales en `fuente/entregas/`
