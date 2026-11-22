@@ -354,7 +354,7 @@
       "color": "Blanco",
       "precio": 12900000,
       "moneda": "ARS",
-      "estado": "disponible",
+      "estado": "vendido",
       "fecha": "2026-11-18",
       "destacados": [
         "Distribución realizada",
@@ -395,7 +395,8 @@
         "fuente/kangoo/9.jpg",
         "fuente/kangoo/10.jpg",
         "fuente/kangoo/11.jpg"
-      ]
+      ],
+      "fecha_venta": "2026-11-21"
     }
   ],
   "entregas": [
